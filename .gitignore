@@ -1,0 +1,16 @@
+/node_modules
+/.next/
+/out/
+/build
+.env
+.env*.local
+prisma/*.db
+prisma/*.db-journal
+*.tsbuildinfo
+node_modules
+node_modules
+.next
+.env
+*.db
+*.db-journal
+bun.lock
