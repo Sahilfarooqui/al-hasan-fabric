@@ -33,7 +33,7 @@ export default function Footer() {
         <div>
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold">Contact</h4>
           <ul className="space-y-2 text-sm text-cream/80">
-            <li>WhatsApp orders welcome</li>
+            <li>WhatsApp: +91 85272 67278</li>
             <li>Pan-India shipping</li>
             <li>COD available on request</li>
           </ul>

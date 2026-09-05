@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { formatINR } from '@/lib/utils';
+import { ADMIN_BASE, adminFetch } from '@/lib/admin-fetch';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -16,10 +17,10 @@ export default function AdminDashboard() {
   } | null>(null);
 
   useEffect(() => {
-    fetch('/api/admin/stats')
+    adminFetch('/api/admin/stats')
       .then(async (r) => {
         if (r.status === 401) {
-          router.push('/admin/login');
+          router.push(`${ADMIN_BASE}/login`);
           return null;
         }
         return r.json();
@@ -43,7 +44,7 @@ export default function AdminDashboard() {
           <ul className="mt-3 space-y-2 text-sm">
             {data.recentOrders.map((o) => (
               <li key={o.id} className="flex justify-between gap-2">
-                <Link href={`/admin/orders/${o.id}`} className="hover:text-emerald">{o.orderNumber} · {o.customerName}</Link>
+                <Link href={`${ADMIN_BASE}/orders/${o.id}`} className="hover:text-emerald">{o.orderNumber} · {o.customerName}</Link>
                 <span>{formatINR(o.total)} · {o.status}</span>
               </li>
             ))}
@@ -55,7 +56,7 @@ export default function AdminDashboard() {
           <ul className="mt-3 space-y-2 text-sm">
             {data.lowStock.map((p) => (
               <li key={p.id} className="flex justify-between">
-                <Link href="/admin/products" className="hover:text-emerald">{p.name}</Link>
+                <Link href={`${ADMIN_BASE}/products`} className="hover:text-emerald">{p.name}</Link>
                 <span className={p.stock <= 5 ? 'text-red-600 font-semibold' : ''}>{p.stock}</span>
               </li>
             ))}

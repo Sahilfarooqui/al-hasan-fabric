@@ -4,11 +4,11 @@ import { usePathname } from "next/navigation";
 import Header from "./Header";
 import Footer from "./Footer";
 import WhatsAppButton from "./WhatsAppButton";
+import { isAdminPath } from "@/lib/admin-path";
 
 export default function StoreChrome({ children }: { children: React.ReactNode }) {
   const path = usePathname();
-  const isAdmin = path?.startsWith("/admin");
-  if (isAdmin) return <>{children}</>;
+  if (isAdminPath(path)) return <>{children}</>;
   return (
     <>
       <Header />

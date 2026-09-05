@@ -1,22 +1,23 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { Heart } from 'lucide-react';
 import { formatINR } from '@/lib/utils';
 import { useWishlist } from '@/hooks/useWishlist';
 import type { ProductDTO } from '@/types';
+import SafeImage from '@/components/ui/SafeImage';
 
 export default function ProductCard({ product }: { product: ProductDTO }) {
   const { has, toggle } = useWishlist();
   const wished = has(product.id);
-  const img = product.images[0] || 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&q=80';
+  const img = product.images[0] || 'https://picsum.photos/seed/alhasan-fallback/600/800';
 
   return (
     <article className="group card overflow-hidden transition hover:shadow-soft">
       <div className="relative aspect-[3/4] overflow-hidden bg-cream-dark">
+        <div className="skeleton absolute inset-0 -z-10" />
         <Link href={`/product/${product.slug}`}>
-          <Image
+          <SafeImage
             src={img}
             alt={product.name}
             fill

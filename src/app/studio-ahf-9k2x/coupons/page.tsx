@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ADMIN_BASE, adminFetch } from '@/lib/admin-fetch';
 
 type Coupon = {
   id: string;
@@ -19,8 +20,8 @@ export default function AdminCouponsPage() {
   const [coupons, setCoupons] = useState<Coupon[]>([]);
 
   const load = () =>
-    fetch('/api/admin/coupons').then(async (r) => {
-      if (r.status === 401) { router.push('/admin/login'); return; }
+    adminFetch('/api/admin/coupons').then(async (r) => {
+      if (r.status === 401) { router.push(`${ADMIN_BASE}/login`); return; }
       const d = await r.json();
       setCoupons(d.coupons || []);
     });
@@ -30,9 +31,8 @@ export default function AdminCouponsPage() {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    await fetch('/api/admin/coupons', {
+    await adminFetch('/api/admin/coupons', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         code: fd.get('code'),
         type: fd.get('type'),
@@ -48,7 +48,7 @@ export default function AdminCouponsPage() {
 
   const remove = async (id: string) => {
     if (!confirm('Delete coupon?')) return;
-    await fetch(`/api/admin/coupons?id=${id}`, { method: 'DELETE' });
+    await adminFetch(`/api/admin/coupons?id=${id}`, { method: 'DELETE' });
     load();
   };
 

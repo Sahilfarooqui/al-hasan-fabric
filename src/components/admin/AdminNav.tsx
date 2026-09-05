@@ -2,24 +2,26 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { ADMIN_BASE, clearCsrfCache } from '@/lib/admin-fetch';
 
 const links = [
-  { href: '/admin', label: 'Dashboard' },
-  { href: '/admin/products', label: 'Products' },
-  { href: '/admin/orders', label: 'Orders' },
-  { href: '/admin/customers', label: 'Customers' },
-  { href: '/admin/coupons', label: 'Coupons' },
+  { href: ADMIN_BASE, label: 'Dashboard' },
+  { href: `${ADMIN_BASE}/products`, label: 'Products' },
+  { href: `${ADMIN_BASE}/orders`, label: 'Orders' },
+  { href: `${ADMIN_BASE}/customers`, label: 'Customers' },
+  { href: `${ADMIN_BASE}/coupons`, label: 'Coupons' },
 ];
 
 export default function AdminNav() {
   const path = usePathname();
   const router = useRouter();
 
-  if (path === '/admin/login') return null;
+  if (path === `${ADMIN_BASE}/login`) return null;
 
   const logout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
-    router.push('/admin/login');
+    clearCsrfCache();
+    router.push(`${ADMIN_BASE}/login`);
   };
 
   return (

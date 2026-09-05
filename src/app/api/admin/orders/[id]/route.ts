@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminSession } from '@/lib/auth';
+import { requireCsrf } from '@/lib/csrf';
 import { prisma } from '@/lib/db';
+import { orderStatusSchema } from '@/lib/validation';
 
 export async function GET(_: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
   const session = await getAdminSession();
@@ -14,8 +16,19 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
   const session = await getAdminSession();
   if (!session.isLoggedIn) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await requireCsrf(req))) return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
   const { id } = await Promise.resolve(params);
-  const { status } = await req.json();
-  const order = await prisma.order.update({ where: { id }, data: { status } });
+
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+  const parsed = orderStatusSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
+  }
+  const order = await prisma.order.update({ where: { id }, data: { status: parsed.data.status } });
   return NextResponse.json({ order });
 }

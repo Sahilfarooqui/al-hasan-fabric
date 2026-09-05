@@ -2,24 +2,35 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { generateOrderNumber } from '@/lib/utils';
 import { ensureSeeded } from '@/lib/seed';
+import { checkoutSchema } from '@/lib/validation';
+import { clientIp, rateLimit } from '@/lib/rate-limit';
 
 export async function POST(req: NextRequest) {
   await ensureSeeded();
+  const limited = rateLimit(`checkout:${clientIp(req)}`, 20, 60 * 60 * 1000);
+  if (!limited.ok) {
+    return NextResponse.json({ error: 'Too many orders. Please wait.' }, { status: 429 });
+  }
+
   try {
-    const body = await req.json();
+    let raw: unknown;
+    try {
+      raw = await req.json();
+    } catch {
+      return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+    }
+
+    const parsed = checkoutSchema.safeParse(raw);
+    if (!parsed.success) {
+      return NextResponse.json({ error: 'Invalid checkout data', details: parsed.error.flatten() }, { status: 400 });
+    }
+
     const {
       customerName, phone, email, whatsappConsent, address, city, state, pincode,
       items, couponCode,
-    } = body;
+    } = parsed.data;
 
-    if (!customerName || !phone || !address || !city || !state || !pincode || !items?.length) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-    }
-
-    const subtotal = items.reduce(
-      (s: number, i: { price: number; quantity: number }) => s + i.price * i.quantity,
-      0
-    );
+    const subtotal = items.reduce((s, i) => s + i.price * i.quantity, 0);
 
     let discount = 0;
     if (couponCode) {
@@ -63,7 +74,7 @@ export async function POST(req: NextRequest) {
       data: {
         orderNumber: generateOrderNumber(),
         customerName,
-        phone: String(phone).replace(/\s/g, ''),
+        phone,
         email: email || null,
         whatsappConsent: !!whatsappConsent,
         address,

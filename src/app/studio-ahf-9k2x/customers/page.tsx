@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ADMIN_BASE, adminFetch } from '@/lib/admin-fetch';
 
 type Customer = {
   id: string;
@@ -17,8 +18,8 @@ export default function AdminCustomersPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
 
   useEffect(() => {
-    fetch('/api/admin/customers').then(async (r) => {
-      if (r.status === 401) { router.push('/admin/login'); return; }
+    adminFetch('/api/admin/customers').then(async (r) => {
+      if (r.status === 401) { router.push(`${ADMIN_BASE}/login`); return; }
       const d = await r.json();
       setCustomers(d.customers || []);
     });

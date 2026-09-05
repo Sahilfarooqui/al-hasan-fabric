@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { formatINR } from '@/lib/utils';
+import { ADMIN_BASE, adminFetch } from '@/lib/admin-fetch';
 
 const STATUSES = ['PENDING', 'PAID', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
 
@@ -13,8 +14,8 @@ export default function AdminOrderDetailPage() {
   const [status, setStatus] = useState('');
 
   const load = () =>
-    fetch(`/api/admin/orders/${id}`).then(async (r) => {
-      if (r.status === 401) { router.push('/admin/login'); return; }
+    adminFetch(`/api/admin/orders/${id}`).then(async (r) => {
+      if (r.status === 401) { router.push(`${ADMIN_BASE}/login`); return; }
       const d = await r.json();
       setOrder(d.order);
       setStatus(d.order.status);
@@ -23,9 +24,8 @@ export default function AdminOrderDetailPage() {
   useEffect(() => { load(); }, [id, router]);
 
   const save = async () => {
-    await fetch(`/api/admin/orders/${id}`, {
+    await adminFetch(`/api/admin/orders/${id}`, {
       method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status }),
     });
     load();

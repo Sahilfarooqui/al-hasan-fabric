@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ADMIN_BASE } from '@/lib/admin-path';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -17,27 +18,30 @@ export default function AdminLoginPage() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: fd.get('email'), password: fd.get('password') }),
+      credentials: 'include',
     });
     if (!res.ok) {
-      setError('Invalid email or password');
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || 'Invalid email or password');
       setLoading(false);
       return;
     }
-    router.push('/admin');
+    router.push(ADMIN_BASE);
     router.refresh();
   };
 
   return (
     <div className="mx-auto max-w-md py-16">
-      <h1 className="text-center font-display text-3xl font-bold">Admin Login</h1>
+      <h1 className="text-center font-display text-3xl font-bold">Studio Login</h1>
+      <p className="mt-2 text-center text-xs text-emerald-deep/50">Authorized access only</p>
       <form onSubmit={onSubmit} className="card mt-8 space-y-4 p-6">
         <div>
           <label className="mb-1 block text-xs font-semibold">Email</label>
-          <input name="email" type="email" required className="input-field" defaultValue="admin@alhasanfabric.com" />
+          <input name="email" type="email" required autoComplete="username" className="input-field" />
         </div>
         <div>
           <label className="mb-1 block text-xs font-semibold">Password</label>
-          <input name="password" type="password" required className="input-field" />
+          <input name="password" type="password" required autoComplete="current-password" className="input-field" />
         </div>
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button type="submit" disabled={loading} className="btn-primary w-full">

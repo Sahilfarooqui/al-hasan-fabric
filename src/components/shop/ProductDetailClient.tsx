@@ -1,12 +1,12 @@
 'use client';
 
-import Image from 'next/image';
-import { useState } from 'react';
-import { Heart, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { Heart, Minus, Plus, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { ProductDTO } from '@/types';
 import { formatINR } from '@/lib/utils';
 import { useCart } from '@/lib/cart-context';
 import { useWishlist } from '@/hooks/useWishlist';
+import SafeImage from '@/components/ui/SafeImage';
 
 export default function ProductDetailClient({ product }: { product: ProductDTO }) {
   const [idx, setIdx] = useState(0);
@@ -14,8 +14,11 @@ export default function ProductDetailClient({ product }: { product: ProductDTO }
   const [color, setColor] = useState(product.colors[0] || '');
   const [qty, setQty] = useState(1);
   const [msg, setMsg] = useState('');
+  const touchX = useRef<number | null>(null);
   const { addItem } = useCart();
   const { has, toggle } = useWishlist();
+
+  const images = product.images.length ? product.images : ['https://picsum.photos/seed/alhasan-fallback/800/1000'];
 
   const add = () => {
     if (product.stock < 1) return;
@@ -24,7 +27,7 @@ export default function ProductDetailClient({ product }: { product: ProductDTO }
       slug: product.slug,
       name: product.name,
       price: product.price,
-      image: product.images[0] || '',
+      image: images[0] || '',
       size,
       color,
       quantity: qty,
@@ -34,17 +37,47 @@ export default function ProductDetailClient({ product }: { product: ProductDTO }
     setTimeout(() => setMsg(''), 2000);
   };
 
+  const prev = () => setIdx((i) => (i - 1 + images.length) % images.length);
+  const next = () => setIdx((i) => (i + 1) % images.length);
+
   return (
     <div className="grid gap-10 lg:grid-cols-2">
       <div>
-        <div className="relative aspect-square overflow-hidden rounded-2xl bg-cream-dark">
-          <Image src={product.images[idx] || product.images[0]} alt={product.name} fill className="object-cover" sizes="(max-width:1024px) 100vw, 50vw" priority />
+        <div
+          className="relative aspect-square overflow-hidden rounded-2xl bg-cream-dark"
+          onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+          onTouchEnd={(e) => {
+            if (touchX.current == null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            if (Math.abs(dx) > 40) {
+              if (dx < 0) next();
+              else prev();
+            }
+            touchX.current = null;
+          }}
+        >
+          <SafeImage src={images[idx]} alt={product.name} fill className="object-cover transition duration-300" sizes="(max-width:1024px) 100vw, 50vw" priority />
+          {images.length > 1 && (
+            <>
+              <button type="button" onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-cream/90 p-2 shadow" aria-label="Previous image">
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button type="button" onClick={next} className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-cream/90 p-2 shadow" aria-label="Next image">
+                <ChevronRight className="h-5 w-5" />
+              </button>
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5">
+                {images.map((_, i) => (
+                  <button key={i} type="button" onClick={() => setIdx(i)} className={`h-1.5 rounded-full transition ${i === idx ? 'w-6 bg-gold' : 'w-1.5 bg-cream/70'}`} aria-label={`Image ${i + 1}`} />
+                ))}
+              </div>
+            </>
+          )}
         </div>
-        {product.images.length > 1 && (
+        {images.length > 1 && (
           <div className="mt-3 flex gap-2 overflow-x-auto">
-            {product.images.map((img, i) => (
-              <button key={img} onClick={() => setIdx(i)} className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 ${i === idx ? 'border-gold' : 'border-transparent'}`}>
-                <Image src={img} alt="" fill className="object-cover" sizes="80px" />
+            {images.map((img, i) => (
+              <button key={`${img}-${i}`} onClick={() => setIdx(i)} className={`relative h-20 w-20 shrink-0 overflow-hidden rounded-xl border-2 ${i === idx ? 'border-gold' : 'border-transparent'}`}>
+                <SafeImage src={img} alt="" fill className="object-cover" sizes="80px" />
               </button>
             ))}
           </div>
@@ -61,7 +94,7 @@ export default function ProductDetailClient({ product }: { product: ProductDTO }
         </div>
         <p className="mt-4 leading-relaxed text-emerald-deep/70">{product.description}</p>
         <p className={`mt-3 text-sm font-medium ${product.stock > 5 ? 'text-emerald' : product.stock > 0 ? 'text-amber-700' : 'text-red-600'}`}>
-          {product.stock > 0 ? `In stock ({product.stock} available)` : 'Out of stock'}
+          {product.stock > 0 ? `In stock (${product.stock} available)` : 'Out of stock'}
         </p>
 
         {product.sizes.length > 0 && (

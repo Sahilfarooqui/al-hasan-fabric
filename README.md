@@ -1,23 +1,45 @@
-# Al Hasan Fabric\n\nPremium fabric store.\n
-## Local run (Windows)
+# Al Hasan Fabric
+
+Premium Indian & Middle-Eastern fabric storefront (Next.js 14 + Prisma + PostgreSQL).
+
+## Local run
 
 Requires Node.js 20+.
 
-In PowerShell or CMD:
-
+```bash
+cp .env.example .env
+npm install
+npm run setup
+npm run dev
 ```
-cd "C:\Users\pc\Documents\trae_projects\alhasan fabric"
-copy .env.example .env
-```
 
-Open http://localhost:3000 after setup.
+Open http://localhost:3000
 
-## Admin
+## Admin (private)
 
-Login at /admin using values from .env.example.
+Admin UI is **not** at `/admin` (returns 404).
+
+Secret path (README only, not on public site):
+
+- `/studio-ahf-9k2x`
+- Login: `/studio-ahf-9k2x/login`
+
+Use env credentials. Rate-limited login, httpOnly cookies, CSRF on mutations.
+
+## Product photo uploads
+
+- Gallery multi-select + optional camera in Studio Products
+- Client compress to WebP/JPEG (~800KB, max 8 images)
+- Cloudinary when CLOUDINARY_* set; else data URLs in Product.images (Render free)
+- Local/dev may write public/uploads/products/; prefer JPEG/PNG/WebP
+
+## WhatsApp
+
+Default: 918527267278 (+91 85272 67278) via NEXT_PUBLIC_WHATSAPP_NUMBER.
 
 ## Notes
 
 - DEMO_PAYMENTS=true simulates checkout
 - Coupons: WELCOME10 GOLD500 EID15
-- For Render use render.yaml and postgresql provider
+- Deploy: render.yaml + PostgreSQL
+- Seed upserts products (refreshes image URLs)

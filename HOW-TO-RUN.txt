@@ -10,8 +10,8 @@ WINDOWS:
    then install + setup + dev (see package.json scripts)
 4. Open http://localhost:3000
 
-ADMIN: /admin
-Email and password: see .env.example
+STUDIO: see README.md for private path (not /admin)
+Credentials: see .env.example
 
 GITHUB: repo https://github.com/Sahilfarooqui/al-hasan-fabric
 Push needs your GitHub login (gh auth login or PAT).

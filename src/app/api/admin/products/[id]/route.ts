@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminSession } from '@/lib/auth';
+import { requireCsrf } from '@/lib/csrf';
 import { prisma } from '@/lib/db';
 import { toProductDTO } from '@/lib/products';
+import { productInputSchema } from '@/lib/validation';
 
 async function guard() {
   const s = await getAdminSession();
@@ -18,31 +20,46 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
 
 export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
   if (!(await guard())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await requireCsrf(req))) return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
   const { id } = await Promise.resolve(params);
-  const body = await req.json();
+
+  let body: unknown;
+  try {
+    body = await req.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const parsed = productInputSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Validation failed', details: parsed.error.flatten() }, { status: 400 });
+  }
+  const data = parsed.data;
+
   const product = await prisma.product.update({
     where: { id },
     data: {
-      name: body.name,
-      slug: body.slug,
-      description: body.description,
-      price: Number(body.price),
-      compareAtPrice: body.compareAtPrice != null && body.compareAtPrice !== '' ? Number(body.compareAtPrice) : null,
-      images: JSON.stringify(body.images || []),
-      category: body.category,
-      fabricType: body.fabricType,
-      sizes: JSON.stringify(body.sizes || []),
-      colors: JSON.stringify(body.colors || []),
-      stock: Number(body.stock),
-      featured: !!body.featured,
-      published: !!body.published,
+      name: data.name,
+      slug: data.slug || undefined,
+      description: data.description,
+      price: data.price,
+      compareAtPrice: data.compareAtPrice ?? null,
+      images: JSON.stringify(data.images || []),
+      category: data.category,
+      fabricType: data.fabricType,
+      sizes: JSON.stringify(data.sizes || []),
+      colors: JSON.stringify(data.colors || []),
+      stock: data.stock,
+      featured: !!data.featured,
+      published: !!data.published,
     },
   });
   return NextResponse.json({ product: toProductDTO(product) });
 }
 
-export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> | { id: string } }) {
   if (!(await guard())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await requireCsrf(req))) return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
   const { id } = await Promise.resolve(params);
   await prisma.product.delete({ where: { id } });
   return NextResponse.json({ ok: true });

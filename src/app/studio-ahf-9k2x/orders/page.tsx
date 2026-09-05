@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatINR } from '@/lib/utils';
+import { ADMIN_BASE, adminFetch } from '@/lib/admin-fetch';
 
 type Order = {
   id: string;
@@ -20,8 +21,8 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    fetch('/api/admin/orders').then(async (r) => {
-      if (r.status === 401) { router.push('/admin/login'); return; }
+    adminFetch('/api/admin/orders').then(async (r) => {
+      if (r.status === 401) { router.push(`${ADMIN_BASE}/login`); return; }
       const d = await r.json();
       setOrders(d.orders || []);
     });
@@ -40,7 +41,7 @@ export default function AdminOrdersPage() {
           <tbody>
             {orders.map((o) => (
               <tr key={o.id} className="border-b border-emerald/5">
-                <td className="py-3"><Link className="font-medium text-emerald hover:underline" href={`/admin/orders/${o.id}`}>{o.orderNumber}</Link></td>
+                <td className="py-3"><Link className="font-medium text-emerald hover:underline" href={`${ADMIN_BASE}/orders/${o.id}`}>{o.orderNumber}</Link></td>
                 <td>{o.customerName}<br /><span className="text-xs text-emerald-deep/50">{o.phone}</span></td>
                 <td>{formatINR(o.total)}</td>
                 <td>{o.status}</td>
