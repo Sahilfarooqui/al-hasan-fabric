@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Heart, Minus, Plus, ShoppingBag, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, Minus, Plus, ShoppingBag, ChevronLeft, ChevronRight, Instagram } from 'lucide-react';
+import { getInstagramUrl } from '@/lib/site';
 import type { ProductDTO } from '@/types';
 import { formatINR } from '@/lib/utils';
 import { useCart } from '@/lib/cart-context';
@@ -131,6 +132,27 @@ export default function ProductDetailClient({ product }: { product: ProductDTO }
             <Heart className={`h-5 w-5 ${has(product.id) ? 'fill-red-500 text-red-500' : ''}`} />
           </button>
         </div>
+
+        {product.videoUrl ? (
+          <a
+            href={product.videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-5 inline-flex w-full items-center justify-center gap-2 sm:w-auto"
+          >
+            <Instagram className="h-4 w-4" /> Watch reel
+          </a>
+        ) : (
+          <a
+            href={getInstagramUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-emerald-deep/70 underline-offset-4 transition hover:text-gold hover:underline"
+          >
+            <Instagram className="h-4 w-4" /> More looks on Instagram
+          </a>
+        )}
+
         {msg && <p className="mt-3 text-sm font-medium text-emerald">{msg}</p>}
       </div>
     </div>

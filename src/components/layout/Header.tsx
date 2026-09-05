@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { Heart, Menu, ShoppingBag, X, Search } from 'lucide-react';
+import { Heart, Menu, ShoppingBag, X, Search, Instagram } from 'lucide-react';
+import { getInstagramUrl } from '@/lib/site';
 import { useCart } from '@/lib/cart-context';
 import { useWishlist } from '@/hooks/useWishlist';
 
@@ -39,6 +40,15 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <a
+            href={getInstagramUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full p-2 text-emerald-deep hover:bg-emerald-muted"
+            aria-label="Instagram"
+          >
+            <Instagram className="h-5 w-5" />
+          </a>
           <Link href="/shop" className="rounded-full p-2 text-emerald-deep hover:bg-emerald-muted" aria-label="Search">
             <Search className="h-5 w-5" />
           </Link>

@@ -25,6 +25,7 @@ export interface ProductDTO {
   stock: number;
   featured: boolean;
   published: boolean;
+  videoUrl: string | null;
 }
 
 export type OrderStatus =

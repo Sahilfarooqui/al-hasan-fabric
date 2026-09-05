@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import { Instagram } from 'lucide-react';
+import { getInstagramUrl } from '@/lib/site';
 
 export default function Footer() {
   return (
@@ -11,6 +13,15 @@ export default function Footer() {
           <p className="mt-3 text-sm leading-relaxed text-cream/70">
             Premium Indian &amp; Middle-Eastern fabrics and attire. Crafted with heritage, worn with pride.
           </p>
+          <a
+            href={getInstagramUrl()}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-2 text-sm text-cream/80 transition hover:text-gold"
+            aria-label="Follow us on Instagram"
+          >
+            <Instagram className="h-5 w-5" /> @alhasan_fabric
+          </a>
         </div>
         <div>
           <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold">Shop</h4>

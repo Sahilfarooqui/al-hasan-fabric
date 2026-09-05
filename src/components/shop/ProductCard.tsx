@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Heart } from 'lucide-react';
+import { Heart, Instagram } from 'lucide-react';
 import { formatINR } from '@/lib/utils';
 import { useWishlist } from '@/hooks/useWishlist';
 import type { ProductDTO } from '@/types';
@@ -30,13 +30,27 @@ export default function ProductCard({ product }: { product: ProductDTO }) {
             Sale
           </span>
         )}
-        <button
-          onClick={() => toggle(product.id)}
-          className="absolute right-3 top-3 rounded-full bg-cream/90 p-2 shadow transition hover:bg-cream"
-          aria-label="Wishlist"
-        >
-          <Heart className={`h-4 w-4 ${wished ? 'fill-red-500 text-red-500' : 'text-emerald-deep'}`} />
-        </button>
+        <div className="absolute right-3 top-3 flex flex-col gap-2">
+          <button
+            onClick={() => toggle(product.id)}
+            className="rounded-full bg-cream/90 p-2 shadow transition hover:bg-cream"
+            aria-label="Wishlist"
+          >
+            <Heart className={`h-4 w-4 ${wished ? 'fill-red-500 text-red-500' : 'text-emerald-deep'}`} />
+          </button>
+          {product.videoUrl && (
+            <a
+              href={product.videoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-cream/90 p-2 shadow transition hover:bg-cream"
+              aria-label="Watch on Instagram"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Instagram className="h-4 w-4 text-emerald-deep" />
+            </a>
+          )}
+        </div>
       </div>
       <div className="p-4">
         <p className="text-xs uppercase tracking-wider text-gold">{product.category}</p>

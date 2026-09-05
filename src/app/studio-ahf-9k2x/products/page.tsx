@@ -11,6 +11,7 @@ import SafeImage from '@/components/ui/SafeImage';
 const empty = {
   name: '', description: '', price: '', compareAtPrice: '', images: [] as string[], category: 'Sarees',
   fabricType: 'Silk', sizes: 'S,M,L', colors: 'Emerald,Gold', stock: '10', featured: false, published: true,
+  videoUrl: '',
   imageUrlDraft: '',
 };
 
@@ -99,6 +100,7 @@ export default function AdminProductsPage() {
       stock: Number(form.stock),
       featured: form.featured,
       published: form.published,
+      videoUrl: form.videoUrl.trim() || null,
     };
     const url = editing ? `/api/admin/products/${editing}` : '/api/admin/products';
     const res = await adminFetch(url, {
@@ -131,6 +133,7 @@ export default function AdminProductsPage() {
       stock: String(p.stock),
       featured: p.featured,
       published: p.published,
+      videoUrl: p.videoUrl || '',
       imageUrlDraft: '',
     });
   };
@@ -200,6 +203,18 @@ export default function AdminProductsPage() {
               ))}
             </div>
           )}
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="mb-1 block text-sm font-medium text-emerald-deep/80">Instagram reel / video URL <span className="font-normal text-emerald-deep/50">(optional)</span></label>
+          <input
+            className="input-field"
+            type="url"
+            placeholder="https://www.instagram.com/reel/…"
+            value={form.videoUrl}
+            onChange={(e) => setForm({ ...form, videoUrl: e.target.value })}
+          />
+          <p className="mt-1 text-xs text-emerald-deep/50">Must be an https Instagram link. Leave blank to show the store Instagram CTA instead.</p>
         </div>
 
         <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} /> Featured</label>

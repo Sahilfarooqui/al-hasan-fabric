@@ -52,6 +52,7 @@ export async function POST(req: NextRequest) {
       stock: data.stock || 0,
       featured: !!data.featured,
       published: data.published !== false,
+      videoUrl: data.videoUrl ?? null,
     },
   });
   return NextResponse.json({ product: toProductDTO(product) });

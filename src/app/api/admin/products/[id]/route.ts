@@ -52,6 +52,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       stock: data.stock,
       featured: !!data.featured,
       published: !!data.published,
+      videoUrl: data.videoUrl ?? null,
     },
   });
   return NextResponse.json({ product: toProductDTO(product) });

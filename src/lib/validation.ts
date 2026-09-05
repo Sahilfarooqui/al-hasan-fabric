@@ -26,6 +26,30 @@ export const productInputSchema = z.object({
   stock: z.coerce.number().int().min(0).max(1_000_000).default(0),
   featured: z.boolean().default(false),
   published: z.boolean().default(true),
+  videoUrl: z
+    .union([
+      z.literal(''),
+      z.null(),
+      z
+        .string()
+        .trim()
+        .url()
+        .refine((u) => u.startsWith('https://'), { message: 'videoUrl must be https' })
+        .refine(
+          (u) => {
+            try {
+              const host = new URL(u).hostname.replace(/^www\./, '');
+              return host === 'instagram.com' || host.endsWith('.instagram.com');
+            } catch {
+              return false;
+            }
+          },
+          { message: 'videoUrl should be an Instagram URL' }
+        ),
+    ])
+    .optional()
+    .nullable()
+    .transform((v) => (v === '' || v == null ? null : v)),
 });
 
 export const couponInputSchema = z.object({

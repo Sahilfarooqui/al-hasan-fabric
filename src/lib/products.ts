@@ -20,6 +20,7 @@ export function toProductDTO(p: Product): ProductDTO {
     stock: p.stock,
     featured: p.featured,
     published: p.published,
+    videoUrl: p.videoUrl ?? null,
   };
 }
 
