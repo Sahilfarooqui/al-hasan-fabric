@@ -1,7 +1,7 @@
 'use client';
 
 import Image, { type ImageProps } from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = Omit<ImageProps, 'src'> & {
   src: string;
@@ -15,8 +15,15 @@ function isDataOrBlob(src: string) {
 }
 
 export default function SafeImage({ src, fallbackSrc = FALLBACK, alt, className, onLoad, onError, ...rest }: Props) {
-  const [current, setCurrent] = useState(src || fallbackSrc);
+  const initial = src || fallbackSrc;
+  const [current, setCurrent] = useState(initial);
   const [useNative, setUseNative] = useState(isDataOrBlob(src || ''));
+
+  useEffect(() => {
+    const next = src || fallbackSrc;
+    setCurrent(next);
+    setUseNative(isDataOrBlob(src || ''));
+  }, [src, fallbackSrc]);
 
   if (useNative || isDataOrBlob(current)) {
     const { fill, priority } = rest;
@@ -38,6 +45,7 @@ export default function SafeImage({ src, fallbackSrc = FALLBACK, alt, className,
 
   return (
     <Image
+      key={current}
       src={current}
       alt={alt || ''}
       className={className}

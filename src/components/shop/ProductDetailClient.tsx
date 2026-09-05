@@ -57,7 +57,7 @@ export default function ProductDetailClient({ product }: { product: ProductDTO }
             touchX.current = null;
           }}
         >
-          <SafeImage src={images[idx]} alt={product.name} fill className="object-cover transition duration-300" sizes="(max-width:1024px) 100vw, 50vw" priority />
+          <SafeImage key={images[idx]} src={images[idx]} alt={`${product.name} photo ${idx + 1}`} fill className="object-cover transition duration-300" sizes="(max-width:1024px) 100vw, 50vw" priority={idx === 0} />
           {images.length > 1 && (
             <>
               <button type="button" onClick={prev} className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-cream/90 p-2 shadow" aria-label="Previous image">
