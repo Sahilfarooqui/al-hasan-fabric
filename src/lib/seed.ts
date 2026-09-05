@@ -51,14 +51,14 @@ async function seedInline() {
       name: 'Banarasi Brocade Fabric (Per Meter)', slug: 'banarasi-brocade-fabric',
       description: 'Authentic Banarasi brocade sold by the meter. Rich motifs woven with metallic threads.',
       price: 2200, compareAtPrice: 2800,
-      images: JSON.stringify(['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80','https://images.unsplash.com/photo-1558769132-cb1aea1f1cba?w=800&q=80']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80','https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80']),
       category: 'Fabrics', fabricType: 'Brocade', sizes: JSON.stringify(['1m','2m','3m','5m']), colors: JSON.stringify(['Red','Emerald','Royal Blue']), stock: 100, featured: true, published: true,
     },
     {
       name: 'Linen Summer Abaya', slug: 'linen-summer-abaya',
       description: 'Flowing linen abaya with minimalist stitching and soft drape for warm climates.',
       price: 4599, compareAtPrice: 5499,
-      images: JSON.stringify(['https://images.unsplash.com/photo-1564257631407-4deb1f99d508?w=800&q=80','https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?w=800&q=80','https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80']),
       category: 'Abayas', fabricType: 'Linen', sizes: JSON.stringify(['S','M','L','XL']), colors: JSON.stringify(['Beige','Black','Olive']), stock: 30, featured: false, published: true,
     },
     {
@@ -79,7 +79,7 @@ async function seedInline() {
       name: 'Handloom Cotton Stole', slug: 'handloom-cotton-stole',
       description: 'Artisan handloom cotton stole with heritage weave patterns. Ethically sourced.',
       price: 999, compareAtPrice: 1299,
-      images: JSON.stringify(['https://images.unsplash.com/photo-1601924999987-b6eaf0bfc293?w=800&q=80','https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80']),
+      images: JSON.stringify(['https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=80','https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80']),
       category: 'Stoles', fabricType: 'Cotton', sizes: JSON.stringify(['One Size']), colors: JSON.stringify(['Indigo','Mustard','Terracotta']), stock: 75, featured: false, published: true,
     },
     {

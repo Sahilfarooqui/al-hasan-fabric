@@ -15,7 +15,7 @@ export default async function HomePage() {
       <section className="relative overflow-hidden bg-emerald-deep text-cream">
         <div className="absolute inset-0 opacity-30">
           <Image
-            src="https://images.unsplash.com/photo-1558769132-cb1aea1f1cba?w=1600&q=80"
+            src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1600&q=80"
             alt=""
             fill
             className="object-cover"

@@ -10,7 +10,7 @@ import type { ProductDTO } from '@/types';
 export default function ProductCard({ product }: { product: ProductDTO }) {
   const { has, toggle } = useWishlist();
   const wished = has(product.id);
-  const img = product.images[0] || 'https://images.unsplash.com/photo-1558769132-cb1aea1f1cba?w=600&q=80';
+  const img = product.images[0] || 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=600&q=80';
 
   return (
     <article className="group card overflow-hidden transition hover:shadow-soft">

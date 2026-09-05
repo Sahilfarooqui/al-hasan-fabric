@@ -90,7 +90,6 @@ export async function generatePaytmChecksum(
   merchantKey: string
 ): Promise<string> {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const PaytmChecksum = require('paytmchecksum');
     return await PaytmChecksum.generateSignature(JSON.stringify(body), merchantKey);
   } catch {
@@ -107,7 +106,6 @@ export async function verifyPaytmChecksum(
   checksumHash: string
 ): Promise<boolean> {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const PaytmChecksum = require('paytmchecksum');
     return await PaytmChecksum.verifySignature(JSON.stringify(body), merchantKey, checksumHash);
   } catch {

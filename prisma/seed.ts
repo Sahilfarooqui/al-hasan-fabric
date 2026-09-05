@@ -68,7 +68,7 @@ const products = [
     price: 1899,
     compareAtPrice: 2499,
     images: JSON.stringify([
-      'https://images.unsplash.com/photo-1621784166252-c1e0e2c2e8a0?w=800&q=80',
+      'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80',
       'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80',
     ]),
     category: 'Dupattas',
@@ -88,7 +88,7 @@ const products = [
     compareAtPrice: 2800,
     images: JSON.stringify([
       'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80',
-      'https://images.unsplash.com/photo-1558769132-cb1aea1f1cba?w=800&q=80',
+      'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80',
     ]),
     category: 'Fabrics',
     fabricType: 'Brocade',
@@ -106,7 +106,7 @@ const products = [
     price: 4599,
     compareAtPrice: 5499,
     images: JSON.stringify([
-      'https://images.unsplash.com/photo-1564257631407-4deb1f99d508?w=800&q=80',
+      'https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?w=800&q=80',
       'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
     ]),
     category: 'Abayas',
@@ -163,7 +163,7 @@ const products = [
     price: 999,
     compareAtPrice: 1299,
     images: JSON.stringify([
-      'https://images.unsplash.com/photo-1601924999987-b6eaf0bfc293?w=800&q=80',
+      'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=80',
       'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80',
     ]),
     category: 'Stoles',
