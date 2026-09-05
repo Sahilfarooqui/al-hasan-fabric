@@ -8,7 +8,7 @@ import { loginSchema } from '@/lib/validation';
 
 export async function POST(req: NextRequest) {
   const ip = clientIp(req);
-  const limited = rateLimit(`login:${ip}`, 5, 15 * 60 * 1000);
+  const limited = rateLimit(`login:${ip}`, 20, 15 * 60 * 1000);
   if (!limited.ok) {
     return NextResponse.json(
       { error: 'Too many login attempts. Try again later.' },

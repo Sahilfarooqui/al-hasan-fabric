@@ -53,8 +53,9 @@ export async function requireAdmin() {
 }
 
 export async function verifyAdminCredentials(email: string, password: string): Promise<boolean> {
-  const adminEmail = process.env.ADMIN_EMAIL || 'admin@alhasanfabric.com';
-  if (email !== adminEmail) {
+  const adminEmail = (process.env.ADMIN_EMAIL || 'admin@alhasanfabric.com').trim().toLowerCase();
+  const normalized = email.trim().toLowerCase();
+  if (normalized !== adminEmail) {
     // Dummy compare to reduce timing leaks
     await bcrypt.compare(password, '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/X4.G2oQ8qKzqKzqKu');
     return false;
