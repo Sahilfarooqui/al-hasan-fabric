@@ -18,7 +18,7 @@ export default function ProductDetailClient({ product }: { product: ProductDTO }
   const { addItem } = useCart();
   const { has, toggle } = useWishlist();
 
-  const images = product.images.length ? product.images : ['https://picsum.photos/seed/alhasan-fallback/800/1000'];
+  const images = product.images.length ? product.images : ['https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80'];
 
   const add = () => {
     if (product.stock < 1) return;

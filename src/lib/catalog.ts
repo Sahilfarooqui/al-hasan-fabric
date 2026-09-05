@@ -1,4 +1,4 @@
-/** Canonical seed catalog — picsum seeds are stable & reliable. */
+/** Canonical seed catalog — verified clothing/fabric Unsplash images. */
 export const SEED_PRODUCTS = [
   {
     name: "Royal Emerald Silk Saree",
@@ -7,8 +7,8 @@ export const SEED_PRODUCTS = [
     price: 12999,
     compareAtPrice: 15999,
     images: [
-      "https://picsum.photos/seed/ahf-emerald-saree-1/800/1000",
-      "https://picsum.photos/seed/ahf-emerald-saree-2/800/1000",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80",
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&q=80",
     ],
     category: "Sarees",
     fabricType: "Silk",
@@ -25,8 +25,8 @@ export const SEED_PRODUCTS = [
     price: 3499,
     compareAtPrice: 4299,
     images: [
-      "https://picsum.photos/seed/ahf-ivory-kurta-1/800/1000",
-      "https://picsum.photos/seed/ahf-ivory-kurta-2/800/1000",
+      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80",
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80",
     ],
     category: "Kurtas",
     fabricType: "Cotton",
@@ -43,8 +43,8 @@ export const SEED_PRODUCTS = [
     price: 24999,
     compareAtPrice: 29999,
     images: [
-      "https://picsum.photos/seed/ahf-midnight-sherwani-1/800/1000",
-      "https://picsum.photos/seed/ahf-midnight-sherwani-2/800/1000",
+      "https://images.unsplash.com/photo-1593032465175-481ac7f401a0?w=800&q=80",
+      "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=800&q=80",
     ],
     category: "Sherwanis",
     fabricType: "Silk Blend",
@@ -61,8 +61,8 @@ export const SEED_PRODUCTS = [
     price: 1899,
     compareAtPrice: 2499,
     images: [
-      "https://picsum.photos/seed/ahf-golden-dupatta-1/800/1000",
-      "https://picsum.photos/seed/ahf-golden-dupatta-2/800/1000",
+      "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80",
+      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800&q=80",
     ],
     category: "Dupattas",
     fabricType: "Tissue",
@@ -79,8 +79,8 @@ export const SEED_PRODUCTS = [
     price: 2200,
     compareAtPrice: 2800,
     images: [
-      "https://picsum.photos/seed/ahf-banarasi-1/800/1000",
-      "https://picsum.photos/seed/ahf-banarasi-2/800/1000",
+      "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80",
     ],
     category: "Fabrics",
     fabricType: "Brocade",
@@ -97,8 +97,8 @@ export const SEED_PRODUCTS = [
     price: 4599,
     compareAtPrice: 5499,
     images: [
-      "https://picsum.photos/seed/ahf-linen-abaya-1/800/1000",
-      "https://picsum.photos/seed/ahf-linen-abaya-2/800/1000",
+      "https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?w=800&q=80",
+      "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80",
     ],
     category: "Abayas",
     fabricType: "Linen",
@@ -115,8 +115,8 @@ export const SEED_PRODUCTS = [
     price: 6999,
     compareAtPrice: 8499,
     images: [
-      "https://picsum.photos/seed/ahf-chanderi-1/800/1000",
-      "https://picsum.photos/seed/ahf-chanderi-2/800/1000",
+      "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=800&q=80",
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&q=80",
     ],
     category: "Suits",
     fabricType: "Chanderi Silk",
@@ -133,8 +133,8 @@ export const SEED_PRODUCTS = [
     price: 8999,
     compareAtPrice: 10999,
     images: [
-      "https://picsum.photos/seed/ahf-velvet-jacket-1/800/1000",
-      "https://picsum.photos/seed/ahf-velvet-jacket-2/800/1000",
+      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=80",
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80",
     ],
     category: "Jackets",
     fabricType: "Velvet",
@@ -151,8 +151,8 @@ export const SEED_PRODUCTS = [
     price: 999,
     compareAtPrice: 1299,
     images: [
-      "https://picsum.photos/seed/ahf-cotton-stole-1/800/1000",
-      "https://picsum.photos/seed/ahf-cotton-stole-2/800/1000",
+      "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&q=80",
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=80",
     ],
     category: "Stoles",
     fabricType: "Cotton",
@@ -169,8 +169,8 @@ export const SEED_PRODUCTS = [
     price: 34999,
     compareAtPrice: 42999,
     images: [
-      "https://picsum.photos/seed/ahf-bridal-pack-1/800/1000",
-      "https://picsum.photos/seed/ahf-bridal-pack-2/800/1000",
+      "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
+      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=800&q=80",
     ],
     category: "Bridal",
     fabricType: "Silk Embroidery",

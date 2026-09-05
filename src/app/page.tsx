@@ -7,10 +7,10 @@ import SafeImage from '@/components/ui/SafeImage';
 export const dynamic = 'force-dynamic';
 
 const COLLECTIONS = [
-  { name: 'Sarees', href: '/shop?category=Sarees', seed: 'ahf-saree', desc: 'Silk & heritage weaves' },
-  { name: 'Kurtas', href: '/shop?category=Kurtas', seed: 'ahf-kurta', desc: 'Everyday elegance' },
-  { name: 'Bridal', href: '/shop?category=Bridal', seed: 'ahf-bridal', desc: 'Celebration packs' },
-  { name: 'Sherwanis', href: '/shop?category=Sherwanis', seed: 'ahf-sherwani', desc: 'Regal occasion wear' },
+  { name: 'Sarees', href: '/shop?category=Sarees', image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&q=80', desc: 'Silk & heritage weaves' },
+  { name: 'Kurtas', href: '/shop?category=Kurtas', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80', desc: 'Everyday elegance' },
+  { name: 'Bridal', href: '/shop?category=Bridal', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80', desc: 'Celebration packs' },
+  { name: 'Sherwanis', href: '/shop?category=Sherwanis', image: 'https://images.unsplash.com/photo-1593032465175-481ac7f401a0?w=600&q=80', desc: 'Regal occasion wear' },
 ];
 
 const TESTIMONIALS = [
@@ -28,7 +28,7 @@ export default async function HomePage() {
       <section className="relative overflow-hidden bg-emerald-deep text-cream">
         <div className="absolute inset-0 opacity-35">
           <SafeImage
-            src="https://picsum.photos/seed/ahf-hero-silk/1600/900"
+            src="https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1600&q=80"
             alt=""
             fill
             className="object-cover"
@@ -85,7 +85,7 @@ export default async function HomePage() {
           {COLLECTIONS.map((c) => (
             <Link key={c.name} href={c.href} className="group relative aspect-[4/5] overflow-hidden rounded-2xl">
               <SafeImage
-                src={`https://picsum.photos/seed/${c.seed}/600/750`}
+                src={c.image}
                 alt={c.name}
                 fill
                 className="object-cover transition duration-700 group-hover:scale-110"

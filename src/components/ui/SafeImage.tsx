@@ -8,7 +8,7 @@ type Props = Omit<ImageProps, 'src'> & {
   fallbackSrc?: string;
 };
 
-const FALLBACK = 'https://picsum.photos/seed/alhasan-fallback/800/1000';
+const FALLBACK = 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=800&q=80';
 
 function isDataOrBlob(src: string) {
   return src.startsWith('data:') || src.startsWith('blob:');
