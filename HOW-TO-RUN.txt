@@ -1,0 +1,17 @@
+AL HASAN FABRIC - HOW TO RUN
+
+BOX (already running): http://localhost:3000
+
+WINDOWS:
+1. Install Node.js 20 LTS from https://nodejs.org/
+2. Open folder: C:\Users\pc\Documents\trae_projects\alhasan fabric
+3. Double-click setup-windows.bat  OR in terminal:
+   copy .env.example .env
+   then install + setup + dev (see package.json scripts)
+4. Open http://localhost:3000
+
+ADMIN: /admin
+Email and password: see .env.example
+
+GITHUB: repo https://github.com/Sahilfarooqui/al-hasan-fabric
+Push needs your GitHub login (gh auth login or PAT).
